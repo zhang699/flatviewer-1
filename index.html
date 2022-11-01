@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="theme-color" content="#ffffff" />
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/data.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/stock/indicators/indicators-all.js"></script>
+    <script type="module" crossorigin src="/assets/index.55d6d73e.js"></script>
+    <link rel="stylesheet" href="/assets/index.ad9c25ac.css">
+  </head>
+  <body>
+    
+    <div id="root"></div>
+    <div id="stockDetail"></div>
+  
+
+    
+    <script> 
+
+  $(document).on('keydown', function(e) {
+        if (e.keyCode == 27)
+        $("#stockDetail").hide();
+          $("#frame").remove();
+        });
+
+  $("#root").click(function(e){
+      $("#stockDetail").hide();
+      $("#frame").remove();
+  });
+
+
+  $("#stockDetail").click(function(e){
+    e.stopPropagation();
+  });
+$('div').click(function (event)
+{  
+  var $target = $(event.target); // the element that fired the original click event
+  var regex = /^[0-9]{4}$/
+  // console.log($target[0].title)
+  stock_id =($target[0].title)
+  if(regex.test(stock_id)){
+    console.log(stock_id)
+    if ($("#stockDetail").is(":hidden")) {
+      $("div#stockDetail").prepend("<div id='frame'></div>");
+      $("#frame").load("http://localhost:5000/api/info/"+stock_id);
+      $("#stockDetail").show();
+    }
+  }
+});
+    </script>
+    
+  </body>
+  
+</html>
